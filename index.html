@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonsterMc - منصة الأدوات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+
+        .header {
+            background-color: #111111;
+            padding: 1.5rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 1rem;
+            background-color: rgba(17, 17, 17, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #007bff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1s ease;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-link {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .social-link:nth-child(1) { animation-delay: 0.2s; }
+        .social-link:nth-child(2) { animation-delay: 0.4s; }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        .social-link.telegram:hover { color: #0088cc; }
+        .social-link.discord:hover { color: #7289da; }
+
+        .container {
+            max-width: 1400px;
+            margin: 7rem auto 2rem;
+            padding: 2rem;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.3s forwards;
+        }
+        
+        .search-input {
+            width: 100%;
+            max-width: 600px;
+            padding: 1rem 1.5rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            margin: 0 auto;
+            display: block;
+            direction: rtl;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.5s forwards;
+        }
+
+        .tab-button {
+            padding: 1rem 2rem;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(45deg, #007bff33, #00ff8833);
+            transition: width 0.3s ease;
+        }
+
+        .tab-button:hover::before {
+            width: 100%;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(45deg, #007bff, #00ff88);
+            border: none;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.7s forwards;
+        }
+
+        .tool-card {
+            background-color: #111111;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 1px solid #2a2a2a;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: cardAppear 0.5s ease forwards;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(45deg, #007bff33, #00ff8833);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,123,255,0.2);
+            border-color: #007bff;
+        }
+
+        .tool-image {
+            width: 100%;
+            height: 200px;
+            background-color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .tool-card:hover .tool-image img {
+            transform: scale(1.1);
+        }
+
+        .tool-content {
+            padding: 2rem;
+        }
+
+        .tool-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .tool-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(45deg, #007bff, #00ff88);
+            transition: width 0.3s ease;
+        }
+
+        .tool-card:hover .tool-title::after {
+            width: 100px;
+        }
+
+        .tool-description {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .tool-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, #007bff, #00ff88);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00ff88, #007bff);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tool-button:hover::before {
+            opacity: 1;
+        }
+
+        .tool-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: #111111;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border: 1px solid #2a2a2a;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .close-button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .social-links {
+                margin-top: 0.5rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab-button {
+                width: calc(50% - 0.5rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <h1 class="logo-text">MonsterMc</h1>
+            </div>
+            <div class="social-links">
+                <a href="https://t.me/your_channel" class="social-link telegram" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="https://discord.gg/your_server" class="social-link discord" target="_blank">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="ابحث عن الأدوات..." onkeyup="searchTools()">
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="filterTools('all')">جميع الأدوات</button>
+            <button class="tab-button" onclick="filterTools('free')">أدوات مجانية</button>
+            <button class="tab-button" onclick="filterTools('paid')">أدوات مدفوعة</button>
+        </div>
+
+        <div class="tools-grid">
+
+            <div class="tool-card" data-category="paid" data-type="crypter" onclick="showToolDetails(this)" style="animation-delay: 0.2s;">
+                <div class="tool-image">
+                    <img src="https://cdn.discordapp.com/attachments/1316466533727342674/1320990778125979701/WhatsApp_Image_2024-05-24_at_9.35.31_PM.jpeg?ex=676b9c08&is=676a4a88&hm=77242cafd87a229c4119f0bb62f12b821f2c254322aa910756874151ef31a759&" alt="Crypter FUD">
+                </div>
+                <div class="tool-content">
+                    <span class="category-tag">Crypter FUD</span>
+                    <h2 class="tool-title">Crypter Pro</h2>
+                    <p class="tool-description">تشفير وتخطي من الحمايه يجدعان</p>
+                    <a href="#" class="tool-button"><span>اشتري الآن</span></a>
+                </div>
+            </div>
+
+
+            <div class="tool-card" data-category="free" data-type="exploit" onclick="showToolDetails(this)" style="animation-delay: 0.4s;">
+                <div class="tool-image">
+                    <img src="https://cdn.discordapp.com/attachments/1316466533727342674/1320990790326943784/dd336ba152281e33bb7787346698dd1c.png?ex=676b9c0b&is=676a4a8b&hm=7a1c8931c2ac4f713debcd445aaef156729d00fbc343bcd02078e95a2f6cc0b3&" alt="Exploit Tool">
+                </div>
+                <div class="tool-content">
+                    <span class="category-tag">Exploit</span>
+                    <h2 class="tool-title">Security Scanner</h2>
+                    <p class="tool-description">انيك كسم كدا</p>
+                    <a href="#" class="tool-button"><span>استخدم مجاناً</span></a>
+                </div>
+            </div>
+
+
+            <div class="tool-card" data-category="paid" data-type="spam" onclick="showToolDetails(this)" style="animation-delay: 0.6s;">
+                <div class="tool-image">
+                    <img src="https://cdn.discordapp.com/attachments/1316466533727342674/1320990790326943784/dd336ba152281e33bb7787346698dd1c.png?ex=676b9c0b&is=676a4a8b&hm=7a1c8931c2ac4f713debcd445aaef156729d00fbc343bcd02078e95a2f6cc0b3&" alt="Spam Tool">
+                </div>
+                <div class="tool-content">
+                    <span class="category-tag">Spam</span>
+                    <h2 class="tool-title">Spam Tool</h2>
+                    <p class="tool-description">يادين امي بحبك يمونستر</p>
+                    <a href="#" class="tool-button"><span>اشتري الآن</span></a>
+                </div>
+            </div>
+
+
+            <div class="tool-card" data-category="paid" data-type="course" onclick="showToolDetails(this)" style="animation-delay: 0.8s;">
+                <div class="tool-image">
+                    <img src="https://cdn.discordapp.com/attachments/1316466533727342674/1320990778125979701/WhatsApp_Image_2024-05-24_at_9.35.31_PM.jpeg?ex=676b9c08&is=676a4a88&hm=77242cafd87a229c4119f0bb62f12b821f2c254322aa910756874151ef31a759&" alt="Course">
+                </div>
+                <div class="tool-content">
+                    <span class="category-tag">Cours</span>
+                    <h2 class="tool-title">كورس الأمن السيبراني</h2>
+                    <p class="tool-description">اه يزبي يناس</p>
+                    <a href="#" class="tool-button"><span>اشترك الآن</span></a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="modal" id="toolModal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+
+        document.querySelectorAll('.tool-card').forEach((card, index) => {
+            card.style.animationDelay = `${0.2 * (index + 1)}s`;
+        });
+
+
+        function searchTools() {
+            const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+            const tools = document.querySelectorAll('.tool-card');
+            
+            tools.forEach(tool => {
+                const title = tool.querySelector('.tool-title').textContent.toLowerCase();
+                const description = tool.querySelector('.tool-description').textContent.toLowerCase();
+                const category = tool.querySelector('.category-tag').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || 
+                    description.includes(searchTerm) || 
+                    category.includes(searchTerm)) {
+                    tool.style.display = 'block';
+                } else {
+                    tool.style.display = 'none';
+                }
+            });
+        }
+
+
+        function filterTools(category) {
+            const tools = document.querySelectorAll('.tool-card');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            buttons.forEach(button => button.classList.remove('active'));
+            event.target.classList.add('active');
+
+            tools.forEach((tool, index) => {
+                tool.style.animation = 'none';
+                tool.offsetHeight; 
+                tool.style.animation = null;
+                tool.style.animationDelay = `${0.1 * (index + 1)}s`;
+                
+                if (category === 'all' || tool.dataset.category === category) {
+                    tool.style.display = 'block';
+                } else {
+                    tool.style.display = 'none';
+                }
+            });
+        }
+
+
+        function showToolDetails(toolCard) {
+            const modal = document.getElementById('toolModal');
+            const modalContent = document.getElementById('modalContent');
+            const toolContent = toolCard.innerHTML;
+            
+            modalContent.innerHTML = toolContent;
+            modal.style.display = 'block';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('toolModal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+
+            document.body.style.overflow = '';
+        }
+
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('toolModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const yOffset = -100;
+                const toolsGrid = document.querySelector('.tools-grid');
+                const y = toolsGrid.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({top: y, behavior: 'smooth'});
+            });
+        });
+
+
+        function animateToolCards() {
+            const cards = document.querySelectorAll('.tool-card');
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const cardObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            cards.forEach(card => {
+                cardObserver.observe(card);
+            });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            animateToolCards();
+        });
+    </script>
+</body>
+</html>

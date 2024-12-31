@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonsterMc</title>
+    <meta name="description" content="موقع MonsterMc للأداوات الخاصه">
+    <meta name="keywords" content="MonsterMc, Rat, Tools, Crypter, Fud, Exploit, Course Cybersecurity">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+        :root {
+            --primary: #007bff;
+            --secondary: #00ff88;
+            --dark: #0a0a0a;
+            --card-bg: #111111;
+            --border: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: #ffffff;
+        }
+
+        .header {
+            background-color: rgba(17, 17, 17, 0.95);
+            padding: 1.5rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+            transition: padding 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 1rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0,123,255,0.3);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-link {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .social-link.telegram:hover { color: #0088cc; }
+        .social-link.discord:hover { color: #7289da; }
+
+        .container {
+            max-width: 1400px;
+            margin: 7rem auto 2rem;
+            padding: 2rem;
+        }
+
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem auto;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #111111, #1a1a1a);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: featureCardFadeIn 0.6s ease forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.4s; }
+        .feature-card:nth-child(3) { animation-delay: 0.6s; }
+        .feature-card:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes featureCardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0,123,255,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.3s forwards;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 600px;
+            padding: 1.2rem 1.8rem;
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            backdrop-filter: blur(8px);
+            margin: 0 auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0,123,255,0.15);
+            transform: scale(1.02);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.5s forwards;
+        }
+
+        .tab-button {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, rgba(0,123,255,0.1), rgba(0,255,136,0.1));
+            border: 2px solid var(--border);
+            color: white;
+            font-weight: 500;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-button:hover {
+            background: linear-gradient(45deg, rgba(0,123,255,0.2), rgba(0,255,136,0.2));
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.7s forwards;
+        }
+
+        .tool-card {
+            background: linear-gradient(145deg, #111111, #1a1a1a);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: cardAppear 0.6s ease forwards;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0,123,255,0.2);
+        }
+
+        .tool-image {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .tool-card:hover .tool-image img {
+            transform: scale(1.1);
+        }
+
+        .tool-content {
+            padding: 2.5rem;
+        }
+
+        .category-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(45deg, rgba(0,123,255,0.1), rgba(0,255,136,0.1));
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(0,123,255,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-tag:hover {
+    background: linear-gradient(45deg, rgba(0,123,255,0.2), rgba(0,255,136,0.2));
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,123,255,0.2);
+}
+
+.category-tag:active {
+    transform: translateY(0);
+}
+
+        .tool-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .tool-description {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .tool-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #111111, #1a1a1a);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 1000px;
+            width: 90%;
+            margin: 2rem auto;
+            position: relative;
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .tool-image {
+                height: 200px;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab-button {
+                width: calc(50% - 0.5rem);
+            }
+        }
+        @keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+
+
+        .favorite-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.favorite-button:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.favorite-button:active {
+    transform: scale(0.95);
+}
+
+.favorite-button.active {
+    background: rgba(255, 77, 77, 0.2);
+    border-color: rgba(255, 77, 77, 0.4);
+    color: #ff4d4d;
+    animation: favorite-pulse 1.5s infinite;
+}
+
+@keyframes favorite-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.4);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(255, 77, 77, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 77, 77, 0);
+    }
+}
+
+.tool-card:hover .favorite-button {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.hero-section {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.gradient-sphere {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+}
+
+.sphere-1 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(45deg, rgba(0,123,255,0.2), rgba(0,255,136,0.2));
+    top: -100px;
+    left: -100px;
+    animation: float 8s ease-in-out infinite;
+}
+
+.sphere-2 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(45deg, rgba(0,255,136,0.2), rgba(0,123,255,0.2));
+    bottom: -50px;
+    right: -50px;
+    animation: float 6s ease-in-out infinite reverse;
+}
+
+.grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.1;
+}
+
+.hero-content {
+    max-width: 800px;
+    position: relative;
+    z-index: 1;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pulse {
+    width: 8px;
+    height: 8px;
+    background: var(--secondary);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.hero-title {
+    font-size: 5.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 1s ease;
+    text-shadow: 0 0 30px rgba(0,123,255,0.3);
+}
+
+.hero-description {
+    font-size: 1.8rem;
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 1s ease 0.2s backwards;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    animation: fadeInUp 1s ease 0.4s backwards;
+}
+
+.hero-button {
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hero-button.primary {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    border: none;
+    color: white;
+}
+
+.hero-button.secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: #fff;
+}
+
+.hero-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,123,255,0.2);
+}
+
+.hero-button i {
+    transition: transform 0.3s ease;
+}
+
+.hero-button:hover i {
+    transform: translateY(3px);
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    animation: fadeInUp 1s ease 0.6s backwards;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(20px, 20px); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0,255,136,0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(0,255,136,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,255,136,0); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .hero-description {
+        font-size: 1.4rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .gradient-sphere {
+        opacity: 0.5;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-background">
+            <div class="gradient-sphere sphere-1"></div>
+            <div class="gradient-sphere sphere-2"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="badge">
+                <span class="pulse"></span>
+                متوفر الآن
+            </div>
+            <h1 class="hero-title">MonsterMc</h1>
+            <p class="hero-description">أقوى موقع للأدوات الأمنية والخدمات المتقدمة في العالم العربي</p>
+            <div class="hero-buttons">
+                <button class="hero-button primary" onclick="scrollToTools()">
+                    ابدأ الآن
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+                <button class="hero-button secondary">
+                    تواصل معنا
+                    <i class="fas fa-envelope"></i>
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">1000+</span>
+                    <span class="stat-label">مستخدم نشط</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">أداة متاحة</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">دعم فني</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <h1 class="logo-text">MonsterMc</h1>
+            </div>
+
+            <div class="social-links">
+                <a href="https://t.me/MONSTERMCSY" class="social-link telegram" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="https://discord.com/invite/KHWHrPp7CX" class="social-link discord" target="_blank">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="features-section">
+            <div class="feature-card">
+                <i class="fas fa-shield-alt feature-icon"></i>
+                <h3 class="feature-title">حماية متقدمة</h3>
+                <p class="feature-description">أحدث تقنيات الحماية والتشفير لضمان أمان بياناتك</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-rocket feature-icon"></i>
+                <h3 class="feature-title">أداء فائق</h3>
+                <p class="feature-description">سرعة وتعامل سريع مع ادوات قويه</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-headset feature-icon"></i>
+                <h3 class="feature-title">دعم 24/7</h3>
+                <p class="feature-description">فريق دعم فني موجود علي طول</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-sync-alt feature-icon"></i>
+                <h3 class="feature-title">تحديثات مستمرة</h3>
+                <p class="feature-description">تحديث بشكل تلقائي</p>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="ابحث عن الأدوات..." onkeyup="searchTools()">
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="filterTools('all')">جميع الأدوات</button>
+            <button class="tab-button" onclick="filterTools('free')">أدوات مجانية</button>
+            <button class="tab-button" onclick="filterTools('paid')">أدوات مدفوعة</button>
+            <button class="tab-button" onclick="filterTools('favorites')">المفضلة</button>
+        </div>
+        
+
+        <div class="tools-grid">
+            <div class="tool-card" data-category="paid" data-type="crypter">
+                <button class="favorite-button" onclick="toggleFavorite(event, this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <div class="tool-image">
+                    <img src="dd336ba152281e33bb7787346698dd1c.png" alt="Crypter FUD">
+                </div>
+                <div class="tool-content">
+                    <span class="category-tag">Crypter FUD</span>
+                    <h2 class="tool-title">Crypter Pro</h2>
+                    <p class="tool-description">تشفير وتخطي من الحمايه يجدعان</p>
+                    <a href="#" class="tool-button"><span>اشتري الآن</span></a>
+                </div>
+            </div>
+
+            <div class="tool-card" data-category="paid" data-type="crypter">
+                <button class="favorite-button" onclick="toggleFavorite(event, this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <div class="tool-image">
+                    <img src="dd336ba152281e33bb7787346698dd1c.png" alt="Crypter FUD Advanced">
+                </div>
+                <div class="tool-content">
+                    <span class="category-tag">Crypter FUD</span>
+                    <h2 class="tool-title">Crypter Elite</h2>
+                    <p class="tool-description">بتاعي واجعني</p>
+                    <a href="#" class="tool-button"><span>اشتري الآن</span></a>
+                </div>
+            </div>
+
+            <div class="tool-card" data-category="free" data-type="exploit">
+                <button class="favorite-button" onclick="toggleFavorite(event, this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <div class="tool-image">
+                    <img src="dd336ba152281e33bb7787346698dd1c.png" alt="Exploit Tool">
+                </div>
+                <div class="tool-content">
+                    <span class="category-tag">Exploit</span>
+                    <h2 class="tool-title">Security Scanner</h2>
+                    <p class="tool-description">اداة فحص الثغرات المتقدمة</p>
+                    <a href="#" class="tool-button"><span>استخدم مجاناً</span></a>
+                </div>
+            </div>
+
+            <div class="tool-card" data-category="paid" data-type="spam">
+                <button class="favorite-button" onclick="toggleFavorite(event, this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <div class="tool-image">
+                    <img src="2.jpeg" alt="Spam Tool">
+                </div>
+                <div class="tool-content">
+                    <span class="category-tag">Spam</span>
+                    <h2 class="tool-title">Spam Pro</h2>
+                    <p class="tool-description">اداة سبام احترافية مع مميزات متقدمة</p>
+                    <a href="#" class="tool-button"><span>اشتري الآن</span></a>
+                </div>
+            </div>
+
+            <div class="tool-card" data-category="paid" data-type="Rat">
+                <button class="favorite-button" onclick="toggleFavorite(event, this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <div class="tool-image">
+                    <img src="2.jpeg" alt="Rat Tool">
+                </div>
+                <div class="tool-content">
+                    <span class="category-tag">Rat</span>
+                    <h2 class="tool-title">CyrexRat</h2>
+                    <p class="tool-description">اداه اختراق احترافيه</p>
+                    <a href="#" class="tool-button"><span>اشتري الآن</span></a>
+                </div>
+            </div>
+
+            <div class="tool-card" data-category="paid" data-type="course">
+                <button class="favorite-button" onclick="toggleFavorite(event, this)">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <div class="tool-image">
+                    <img src="2.jpeg" alt="Course">
+                </div>
+                <div class="tool-content">
+                    <span class="category-tag">Course</span>
+                    <h2 class="tool-title">كورس الأمن السيبراني</h2>
+                    <p class="tool-description">تعلم اساسيات ومتقدم الامن السيبراني</p>
+                    <a href="#" class="tool-button"><span>اشترك الآن</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="toolModal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 2rem 0; background: linear-gradient(145deg, #111111, #1a1a1a); border-top: 1px solid var(--border); margin-top: 3rem;">
+        <p style="font-size: 1.2rem; color: #aaa;">
+            Made By 
+            <a href="https://nomorelife1.github.io/Website/" target="_blank" style="background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold; text-decoration: none;">
+                NoMoreLife
+            </a> 
+            With Love 
+            <span class="heart" style="color: #ff4d4d; animation: heartbeat 1.5s infinite;">❤</span>
+        </p>
+    </footer>
+    <script>
+function toggleFavorite(event, button) {
+    event.stopPropagation();
+    button.classList.toggle('active');
+    
+    const toolCard = button.closest('.tool-card');
+    const toolId = toolCard.querySelector('.tool-title').textContent;
+    
+    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    
+    if (button.classList.contains('active')) {
+        if (!favorites.includes(toolId)) {
+            favorites.push(toolId);
+        }
+    } else {
+        favorites = favorites.filter(id => id !== toolId);
+        if (document.querySelector('.tab-button[onclick="filterTools(\'favorites\')"]').classList.contains('active')) {
+            toolCard.classList.add('removing-favorite');
+            setTimeout(() => {
+                toolCard.style.display = 'none';
+                toolCard.classList.remove('removing-favorite');
+            }, 800);
+        }
+    }
+    
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        function searchTools() {
+            const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+            const tools = document.querySelectorAll('.tool-card');
+            
+            tools.forEach(tool => {
+                const title = tool.querySelector('.tool-title').textContent.toLowerCase();
+                const description = tool.querySelector('.tool-description').textContent.toLowerCase();
+                const category = tool.querySelector('.category-tag').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || 
+                    description.includes(searchTerm) || 
+                    category.includes(searchTerm)) {
+                    tool.style.display = 'block';
+                } else {
+                    tool.style.display = 'none';
+                }
+            });
+        }
+
+const style = document.createElement('style');
+style.textContent = `
+    .favorite-button.removing {
+        animation: removeFromFavorites 0.3s ease forwards;
+    }
+
+    @keyframes removeFromFavorites {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2) rotate(20deg); }
+        100% { transform: scale(0) rotate(-20deg); }
+    }
+
+    @keyframes removeCard {
+        0% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(0.8); opacity: 0; }
+    }
+
+    .removing-favorite {
+        animation: removeCard 0.3s ease-in-out forwards;
+    }
+`;
+document.head.appendChild(style);
+
+
+        function filterTools(category) {
+    const tools = document.querySelectorAll('.tool-card');
+    const buttons = document.querySelectorAll('.tab-button');
+    
+    buttons.forEach(button => button.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    if (category === 'favorites') {
+        const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        tools.forEach(tool => {
+            const toolId = tool.querySelector('.tool-title').textContent;
+            tool.style.animation = '';
+            tool.style.display = favorites.includes(toolId) ? 'block' : 'none';
+        });
+    } else {
+        tools.forEach(tool => {
+            tool.style.animation = '';
+            if (category === 'all' || tool.dataset.category === category) {
+                tool.style.display = 'block';
+            } else {
+                tool.style.display = 'none';
+            }
+        });
+    }
+}
+
+        function showToolDetails(toolCard) {
+            const modal = document.getElementById('toolModal');
+            const modalContent = document.getElementById('modalContent');
+            const toolContent = toolCard.innerHTML;
+            
+            modalContent.innerHTML = toolContent;
+            modal.style.display = 'block';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('toolModal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+
+            document.body.style.overflow = '';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('toolModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.addEventListener('click', () => showToolDetails(card));
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.tool-card').forEach((card, index) => {
+                card.style.animationDelay = `${0.1 * (index + 1)}s`;
+            });
+        });
+
+
+
+function filterByCategory(category) {
+    const tools = document.querySelectorAll('.tool-card');
+    const buttons = document.querySelectorAll('.tab-button');
+    
+
+    buttons.forEach(button => button.classList.remove('active'));
+    
+    tools.forEach((tool, index) => {
+
+        tool.style.animation = 'none';
+        tool.offsetHeight; 
+        tool.style.animation = null;
+        tool.style.animationDelay = `${0.1 * (index + 1)}s`;
+        
+
+        const toolCategory = tool.querySelector('.category-tag').textContent.trim();
+        
+
+        if (category === toolCategory) {
+            tool.style.display = 'block';
+        } else {
+            tool.style.display = 'none';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    document.querySelectorAll('.tool-card').forEach(card => {
+        const toolId = card.querySelector('.tool-title').textContent;
+        const favoriteButton = card.querySelector('.favorite-button');
+        if (favorites.includes(toolId)) {
+            favoriteButton.classList.add('active');
+        }
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const categoryTags = document.querySelectorAll('.category-tag');
+    categoryTags.forEach(tag => {
+        tag.style.cursor = 'pointer';
+        tag.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            const category = tag.textContent.trim();
+            filterByCategory(category);
+        });
+    });
+});
+
+
+function showAllTools() {
+    const tools = document.querySelectorAll('.tool-card');
+    tools.forEach(tool => {
+        tool.style.display = 'block';
+    });
+}
+
+
+document.querySelector('.tab-button[onclick="filterTools(\'all\')"]').addEventListener('click', showAllTools);
+
+
+
+
+function scrollToTools() {
+    const featuresSection = document.querySelector('.features-section');
+    const header = document.querySelector('.header');
+    const headerHeight = header.offsetHeight;
+    
+    window.scrollTo({
+        top: featuresSection.offsetTop - headerHeight,
+        behavior: 'smooth'
+    });
+}
+
+function updateToolCount() {
+    const toolCount = document.querySelectorAll('.tool-card').length;
+    const toolStatNumber = document.querySelector('.stat-item:nth-child(2) .stat-number');
+    if (toolStatNumber) {
+        toolStatNumber.textContent = toolCount + '+';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', updateToolCount);
+
+    </script>
+</body>
+</html>
